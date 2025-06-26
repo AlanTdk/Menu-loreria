@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramos Alba - Florería en Tuxtla Gutiérrez</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Custom color palette for an elegant, soft theme
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cream': '#F9F5F0',
+                        'dark-green': '#3A4F41',
+                        'accent-pink': '#E8B4B8',
+                        'soft-pink': '#F4E3E3',
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Custom Styles with animations -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-cream text-dark-green font-body">
+
+    <!-- Hero Section -->
+    <header class="hero-section text-center flex flex-col justify-center items-center min-h-screen p-4 reveal">
+        <div class="bg-cream/80 backdrop-blur-sm p-8 rounded-lg">
+            <h1 class="font-display text-6xl md:text-8xl text-dark-green">Ramos Alba</h1>
+            <p class="text-xl md:text-2xl mt-4 text-dark-green/80 max-w-lg mx-auto">{{ info.slogan }}</p>
+            <a href="{{ info.whatsapp_quote_url }}" target="_blank" class="cta-button mt-8">
+                Cotizar por WhatsApp
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16 md:py-24">
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="mb-20">
+            <h2 class="font-display text-5xl text-center mb-12 reveal animated-underline">Nuestras Creaciones</h2>
+            <div class="gallery-grid">
+                {% for bouquet in bouquets %}
+                <div class="gallery-item reveal">
+                    <img src="{{ url_for('static', filename=bouquet.image) }}" alt="[Imagen de {{ bouquet.name }}]" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x700/F4E3E3/3A4F41?text={{ bouquet.name }}';">
+                    <div class="gallery-overlay">
+                        <h3 class="font-display text-2xl">{{ bouquet.name }}</h3>
+                        <p class="text-sm">{{ bouquet.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Promotions Section -->
+        <section id="promociones" class="bg-soft-pink rounded-xl p-8 md:p-12 mb-20 reveal">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <h2 class="font-display text-5xl mb-4">Promoción Especial</h2>
+                    {% for promo in promotions %}
+                    <p class="text-lg text-dark-green/90">{{ promo.description }}</p>
+                    <a href="{{ info.whatsapp_quote_url }}" target="_blank" class="cta-button mt-6">
+                        ¡La quiero!
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="md:w-1/2">
+                    <img src="{{ url_for('static', filename=promotions[0].image) }}" alt="[Imagen de promoción]" class="w-full h-auto rounded-lg shadow-xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F9F5F0/3A4F41?text=Promo';">
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="text-center p-12 bg-dark-green text-cream rounded-xl reveal">
+             <h2 class="font-display text-4xl md:text-5xl">¿Tienes una idea en mente?</h2>
+             <p class="text-xl mt-4 max-w-2xl mx-auto">Creamos ramos personalizados para cualquier ocasión. Cuéntanos tu idea y la haremos realidad.</p>
+             <a href="{{ info.whatsapp_quote_url }}" target="_blank" class="cta-button-inverted mt-8">
+                Crear mi Ramo Ideal
+            </a>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-soft-pink text-center p-8 mt-20">
+        <div class="reveal">
+            <h2 class="font-display text-3xl mb-4">Ramos Alba</h2>
+            <p class="mb-6">Flores con amor, entrega inmediata en Tuxtla Gutiérrez.</p>
+            <div class="flex justify-center items-center space-x-6">
+                <a href="{{ info.instagram_url }}" target="_blank" class="social-link">Instagram</a>
+                <a href="{{ info.tiktok_url }}" target="_blank" class="social-link">TikTok</a>
+                <a href="{{ info.whatsapp_quote_url }}" target="_blank" class="social-link">WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para animaciones al hacer scroll -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+# # # Entornos Virtuales # # #
+# Ignora la carpeta del entorno virtual. Es específica de tu máquina y se puede recrear.
+venv/
+/venv/
+.venv/
+/.venv/
+env/
+/env/
+.env/
+/.env/
+
+# # # Archivos generados por Python # # #
+# Ignora las carpetas de caché de Python y los archivos de bytecode compilados.
+__pycache__/
+*.py[cod]
+*$py.class
+
+# # # Archivos específicos de Flask # # #
+# Ignora la carpeta de instancia que puede contener configuraciones secretas.
+/instance/
+/.webassets-cache
+
+# # # Archivos de base de datos # # #
+# Si usas una base de datos local como SQLite, no la subas al repositorio.
+*.db
+*.sqlite3
+
+# # # Archivos de variables de entorno # # #
+# Los archivos .env contienen claves de API y secretos que NUNCA deben estar en el repositorio.
+.env
+.env.*
+
+# # # Archivos de dependencias # # #
+# Es mejor usar un archivo requirements.txt para gestionar las dependencias.
+/dist/
+/build/
+*.egg-info/
+/downloads/
+/lib/
+/lib64/
+
+# # # Archivos generados por el Sistema Operativo # # #
+# Archivos específicos de macOS, Windows y Linux.
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# # # Archivos de configuración de Editores e IDEs # # #
+# Ignora las carpetas de configuración de editores populares.
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# # # Archivos de logs # # #
+# Los archivos de registro pueden crecer mucho y no deben estar en el control de versiones.
+*.log
+logs/
+
